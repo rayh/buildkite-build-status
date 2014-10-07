@@ -44,8 +44,10 @@
         build.innerHTML = humanize(lastStatus);
       } else {
         html = builds[0].innerHTML;
+        html += '<section class="project">'
         html += '<h2>' + humanize(name) + '</h2>';
-        html += '<div id="' + name + '" class="build ' + activity + ' ' + lastStatus + '">' + humanize(lastStatus) + '<div>';
+        html += '<div id="' + name + '" class="build ' + activity + ' ' + lastStatus + '">' + humanize(lastStatus) + '</div>';
+        html += '</section>'
         builds[0].innerHTML = html;
         rendered.push(name);
       }
