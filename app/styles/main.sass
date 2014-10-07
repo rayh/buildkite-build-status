@@ -1,3 +1,5 @@
+@import "config"
+
 body
   font-family: 'Open Sans', sans-serif
 
@@ -33,10 +35,13 @@ body
   opacity: 0.6
 
 .build.failure
-  background-color: #a00
+  background: $failure
 
 .build.success
-  background-color: #30aa00
+  background: $success
 
 .build.building
-  background-color: #d79300
+  background: $building
+
+.build.unknown
+  background: $unknown

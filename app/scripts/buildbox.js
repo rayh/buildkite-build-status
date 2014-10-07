@@ -35,16 +35,17 @@
       var activity = projects[i].getAttribute('activity').toLowerCase();
       var lastStatus = (projects[i].getAttribute('lastBuildStatus'))
         ? projects[i].getAttribute('lastBuildStatus').toLowerCase()
-        : 'Unknown';
+        : 'unknown';
 
 
       if(rendered.indexOf(name) > -1) {
         var build = document.getElementById(name);
         build.className = 'build ' + activity + ' ' + lastStatus;
+        build.innerHTML = humanize(lastStatus);
       } else {
         html = builds[0].innerHTML;
-        html += '<div id="' + name + '" class="build ' + activity + ' ' + lastStatus + '">' + humanize(lastStatus) + '<div>';
         html += '<h2>' + humanize(name) + '</h2>';
+        html += '<div id="' + name + '" class="build ' + activity + ' ' + lastStatus + '">' + humanize(lastStatus) + '<div>';
         builds[0].innerHTML = html;
         rendered.push(name);
       }
