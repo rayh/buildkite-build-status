@@ -33,7 +33,9 @@
     for(var i = 0; i < projects.length; i++) {
       var name = projects[i].getAttribute('name').replace(/\s/g, '-');
       var activity = projects[i].getAttribute('activity').toLowerCase();
-      var lastStatus = projects[i].getAttribute('lastBuildStatus').toLowerCase();
+      var lastStatus = (projects[i].getAttribute('lastBuildStatus'))
+        ? projects[i].getAttribute('lastBuildStatus').toLowerCase()
+        : 'Unknown';
 
 
       if(rendered.indexOf(name) > -1) {
@@ -57,7 +59,7 @@
     fetchBuildStatus(function(error, xml) {
       process(xml);
     });
-  }, 5000);
+  }, Settings.pollInterval);
 
 
 })();
