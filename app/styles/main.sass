@@ -6,9 +6,6 @@ body
   margin: 0
   padding: 0
 
-h2
-  margin: 0
-
 .builds
   align-content: center
   display: flex
@@ -25,21 +22,23 @@ h2
   background: rgba(hotpink, .2)
   color: black
 
+.build__name
+  margin: 0
+
 .bubble
   color: white
   height: 90%
-  // line-height: 100px
   text-align: center
   transition: background-color 0.5s ease-in-out
 
-.inactive
+.bubble--inactive
   background: $inactive
 
-.failure
+.bubble--failure
   background: $failure
 
-.success
+.bubble--success
   background: $success
 
-.building
+.bubble--building
   background: $building
