@@ -11,6 +11,10 @@ BuildboxMonitor.utilities = {
     }
 
     return words.join(' ');
+  },
+
+  dasherize: function(str) {
+    return str.replace(/\s/g, '-');
   }
 
 }

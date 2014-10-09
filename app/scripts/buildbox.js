@@ -1,8 +1,6 @@
 (function() {
 
-  var settings = BuildboxMonitor.settings;
-  var utilities = BuildboxMonitor.utilities;
-  var rendered = [];
+  var settings = BuildboxMonitor.settings, utilities = BuildboxMonitor.utilities, rendered = [];
   var url = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey;
 
   var fetchBuildStatus = function(callback) {
@@ -21,17 +19,13 @@
 
     for(var i = 0; i < projects.length; i++) {
       var currentRow = document.getElementById("row" + Math.ceil((i+1) / settings.buildsPerRow));
-      var name = projects[i].getAttribute('name').replace(/\s/g, '-');
+      var name = utilities.dasherize(projects[i].getAttribute('name'));
       var activity = projects[i].getAttribute('activity').toLowerCase();
-      var lastStatus = (projects[i].getAttribute('lastBuildStatus'))
-        ? projects[i].getAttribute('lastBuildStatus').toLowerCase()
-        : 'inactive';
+      var lastStatus = getLastStatus(projects[i]);
       var currentStatus = getCurrentStatus(lastStatus, activity);
 
       if(rendered.indexOf(name) > -1) {
-        var build = document.getElementById(name);
-        build.className = 'bubble ' + lastStatus + ' ' + activity ;
-        build.innerHTML = utilities.humanize(lastStatus);
+        updateStatus(name);
       } else {
         html = currentRow.innerHTML;
         html += tmpl("build_template", { name: name, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity });
@@ -44,7 +38,6 @@
   var buildRows = function(builds, projects) {
     var rows = Math.ceil(projects.length / settings.buildsPerRow);
     var rowHtml = '';
-
     for(var i = 0; i < rows; i++) { rowHtml += tmpl("row_template", { rowNumber: (i+1) }); }
     builds[0].innerHTML = rowHtml;
   }
@@ -54,6 +47,19 @@
       return utilities.humanize(activity);
     }
     return utilities.humanize(lastStatus);
+  }
+
+  var getLastStatus = function(project) {
+    if (!project.getAttribute('lastBuildStatus')) {
+      return 'inactive';
+    }
+    return project.getAttribute('lastBuildStatus').toLowerCase();
+  }
+
+  var updateStatus = function(buildName) {
+    var build = document.getElementById(buildName);
+    build.className = 'bubble ' + lastStatus + ' ' + activity ;
+    build.innerHTML = utilities.humanize(lastStatus);
   }
 
   fetchBuildStatus(function(error, xml) {
