@@ -27,9 +27,7 @@
       if(rendered.indexOf(name) > -1) {
         updateStatus(name);
       } else {
-        html = currentRow.innerHTML;
-        html += tmpl("build_template", { name: name, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity });
-        currentRow.innerHTML = html;
+        renderRow(currentRow, { name: name, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity });
         rendered.push(name);
       }
     }
@@ -62,6 +60,12 @@
     build.innerHTML = utilities.humanize(lastStatus);
   }
 
+  var renderRow = function(row, dataObj){
+    html = row.innerHTML;
+    html += tmpl("build_template", dataObj);
+    row.innerHTML = html;
+  }
+
   fetchBuildStatus(function(error, xml) {
     process(xml);
   });
@@ -71,6 +75,5 @@
   //     process(xml);
   //   });
   // }, Settings.pollInterval);
-
 
 })();
