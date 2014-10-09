@@ -1,6 +1,8 @@
 (function() {
 
-  var url = 'https://cc.buildbox.io/' + Settings.project + '.xml?api_key=' + Settings.apiKey;
+  var settings = BuildboxMonitor.settings;
+  var utilities = BuildboxMonitor.utilities;
+  var url = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey;
 
   var fetchBuildStatus = function(callback) {
     var request = new XMLHttpRequest();
@@ -11,44 +13,33 @@
     request.send();
   }
 
-  var humanize = function(str) {
-    str = str.replace(/-/g, ' ');
-    words = str.split(' ');
-
-    for(var i = 0; i < words.length; i++) {
-      var letters = words[i].split('');
-      var firstLetter = letters.shift();
-      words[i] = firstLetter.toUpperCase() + letters.join('');
-    }
-
-    return words.join(' ');
-  }
-
   var rendered = [];
 
   var process = function(xml) {
     var projects = xml.getElementsByTagName('Project');
     var builds = document.getElementsByClassName('builds');
+    var rows = Math.ceil(projects.length / settings.buildsPerRow);
+    var rowHtml = '';
+
+    for(var i = 0; i < rows; i++) { rowHtml += tmpl("row_template", { rowNumber: (i+1) }); }
+    builds[0].innerHTML = rowHtml;
 
     for(var i = 0; i < projects.length; i++) {
+      var currentRow = document.getElementById("row" + Math.ceil((i+1) / settings.buildsPerRow));
       var name = projects[i].getAttribute('name').replace(/\s/g, '-');
       var activity = projects[i].getAttribute('activity').toLowerCase();
       var lastStatus = (projects[i].getAttribute('lastBuildStatus'))
         ? projects[i].getAttribute('lastBuildStatus').toLowerCase()
         : 'unknown';
 
-
       if(rendered.indexOf(name) > -1) {
         var build = document.getElementById(name);
-        build.className = 'build ' + activity + ' ' + lastStatus;
-        build.innerHTML = humanize(lastStatus);
+        build.className = 'bubble ' + lastStatus + ' ' + activity ;
+        build.innerHTML = utilities.humanize(lastStatus);
       } else {
-        html = builds[0].innerHTML;
-        html += '<section class="project">'
-        html += '<h2>' + humanize(name) + '</h2>';
-        html += '<div id="' + name + '" class="build ' + activity + ' ' + lastStatus + '">' + humanize(lastStatus) + '</div>';
-        html += '</section>'
-        builds[0].innerHTML = html;
+        html = currentRow.innerHTML;
+        html += tmpl("build_template", { name: name, lastStatus: lastStatus, currentState: ((activity != "building") ? utilities.humanize(lastStatus) : utilities.humanize(activity)), activity: activity });
+        currentRow.innerHTML = html;
         rendered.push(name);
       }
     }
@@ -58,11 +49,11 @@
     process(xml);
   });
 
-  setInterval(function() {
-    fetchBuildStatus(function(error, xml) {
-      process(xml);
-    });
-  }, Settings.pollInterval);
+  // setInterval(function() {
+  //   fetchBuildStatus(function(error, xml) {
+  //     process(xml);
+  //   });
+  // }, Settings.pollInterval);
 
 
 })();
