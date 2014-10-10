@@ -15,7 +15,7 @@
   var process = function(xml) {
     var projects = xml.getElementsByTagName('Project');
     var builds = document.getElementsByClassName('builds');
-    buildRows(builds, projects);
+    if(rendered.length == 0) { buildRows(builds, projects); }
 
     for(var i = 0; i < projects.length; i++) {
       var currentRow = document.getElementById("row" + Math.ceil((i+1) / settings.buildsPerRow));
@@ -23,9 +23,8 @@
       var activity = projects[i].getAttribute('activity').toLowerCase();
       var lastStatus = getLastStatus(projects[i]);
       var currentStatus = getCurrentStatus(lastStatus, activity);
-
       if(rendered.indexOf(name) > -1) {
-        updateStatus(name);
+        updateStatus(name, lastStatus, activity, currentStatus);
       } else {
         renderRow(currentRow, { name: name, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity });
         rendered.push(name);
@@ -54,10 +53,10 @@
     return project.getAttribute('lastBuildStatus').toLowerCase();
   }
 
-  var updateStatus = function(buildName) {
+  var updateStatus = function(buildName, lastStatus, activity, currentStatus) {
     var build = document.getElementById(buildName);
-    build.className = 'bubble ' + lastStatus + ' ' + activity ;
-    build.innerHTML = utilities.humanize(lastStatus);
+    build.className = 'bubble bubble--' + lastStatus + ' bubble--' + activity ;
+    build.innerHTML = utilities.humanize(currentStatus);
   }
 
   var renderRow = function(row, dataObj){
@@ -71,9 +70,10 @@
   });
 
   setInterval(function() {
+    console.log('Polling...');
     fetchBuildStatus(function(error, xml) {
       process(xml);
     });
-  }, Settings.pollInterval);
+  }, settings.pollInterval);
 
 })();
