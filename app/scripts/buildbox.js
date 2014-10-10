@@ -70,10 +70,10 @@
     process(xml);
   });
 
-  // setInterval(function() {
-  //   fetchBuildStatus(function(error, xml) {
-  //     process(xml);
-  //   });
-  // }, Settings.pollInterval);
+  setInterval(function() {
+    fetchBuildStatus(function(error, xml) {
+      process(xml);
+    });
+  }, Settings.pollInterval);
 
 })();
