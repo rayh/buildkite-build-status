@@ -1,4 +1,4 @@
-var Settings = {
+BuildboxMonitor.settings = {
   project: 'PROJECT_NAME',
   apiKey: 'API_KEY',
   buildsPerRow: 2,
