@@ -1,7 +1,7 @@
 (function() {
 
   var settings = BuildboxMonitor.settings, utilities = BuildboxMonitor.utilities, rendered = [];
-  var url = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey;
+  var url = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch=master';
 
   var fetchBuildStatus = function(callback) {
     var request = new XMLHttpRequest();
@@ -37,7 +37,8 @@
   var applyWhitelist = function(projects, whitelistedProjects) {
     newProjects = []
     for(var i = 0; i < projects.length; i++) {
-      if( whitelistedProjects.indexOf(projects[i].getAttribute('name')) >= 0 ) {
+      console.log(utilities.dasherize(projects[i].getAttribute('name')));
+      if( whitelistedProjects.indexOf( utilities.dasherize(projects[i].getAttribute('name')) ) >= 0 ) {
         newProjects.push( projects[i] );
       }
     }

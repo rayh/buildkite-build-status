@@ -14,7 +14,7 @@ BuildboxMonitor.utilities = {
   },
 
   dasherize: function(str) {
-    return str.replace(/\s/g, '-').toLowerCase();
+    return str.replace(/([\s\(\)]+)/g, '-').replace(/\-$/, '').toLowerCase();
   }
 
 }
