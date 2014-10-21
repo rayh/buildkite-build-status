@@ -14,6 +14,8 @@
 
   var process = function(xml) {
     var projects = xml.getElementsByTagName('Project');
+    var whitelisted = settings.whitelist;
+    projects = applyWhitelist(projects, whitelisted);
     var builds = document.getElementsByClassName('builds');
     if(rendered.length == 0) { buildRows(builds, projects); }
 
@@ -30,6 +32,16 @@
         rendered.push(name);
       }
     }
+  }
+
+  var applyWhitelist = function(projects, whitelistedProjects) {
+    newProjects = []
+    for(var i = 0; i < projects.length; i++) {
+      if( whitelistedProjects.indexOf(projects[i].getAttribute('name')) >= 0 ) {
+        newProjects.push( projects[i] );
+      }
+    }
+    return newProjects;
   }
 
   var buildRows = function(builds, projects) {
