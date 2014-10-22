@@ -25,10 +25,19 @@
       var activity = projects[i].getAttribute('activity').toLowerCase();
       var lastStatus = getLastStatus(projects[i]);
       var currentStatus = getCurrentStatus(lastStatus, activity);
+
+      lastBuildTimeStamp = utilities.friendlyDate(projects[i].getAttribute('lastBuildTime'));
+
+      var lastBuildLabel = projects[i].getAttribute('lastBuildLabel');
+      if(lastBuildLabel == undefined)
+        lastBuildLabel = ""
+      else
+        lastBuildLabel = "#" + lastBuildLabel
+
       if(rendered.indexOf(name) > -1) {
         updateStatus(name, lastStatus, activity, currentStatus);
       } else {
-        renderRow(currentRow, { name: name, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity });
+        renderRow(currentRow, { name: name, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity, lastBuildLabel: lastBuildLabel, lastBuildTimeStamp: lastBuildTimeStamp });
         rendered.push(name);
       }
     }
@@ -37,7 +46,6 @@
   var applyWhitelist = function(projects, whitelistedProjects) {
     newProjects = []
     for(var i = 0; i < projects.length; i++) {
-      console.log(utilities.dasherize(projects[i].getAttribute('name')));
       if( whitelistedProjects.indexOf( utilities.dasherize(projects[i].getAttribute('name')) ) >= 0 ) {
         newProjects.push( projects[i] );
       }
@@ -83,7 +91,7 @@
   });
 
   setInterval(function() {
-    console.log('Polling...');
+    // console.log('Polling...');
     fetchBuildStatus(function(error, xml) {
       process(xml);
     });

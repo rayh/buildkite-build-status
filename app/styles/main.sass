@@ -2,9 +2,11 @@
 
 body
   box-sizing: border-box
-  font-family: 'Signika Negative', 'Helvetica Neue', Helvetica, arial, sans-serif
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, arial, sans-serif
   margin: 0
   padding: 0
+  background: $body
+  color: $text-color
 
 .builds
   align-content: center
@@ -25,31 +27,88 @@ body
   width: 100%
 
 .build
-  background: #e7e7de
   display: flex
   flex-direction: column
-  color: black
   flex: 1 0 0px
+  align-items: center
+  justify-content: center
+
   margin: 1em
+  overflow: hidden
+  position: relative
+
+  h2
+    font-size: 2em
+    font-size: 4vmin
+    line-height: 2em
+    line-height: 7vmin
+    width: 90%
+    padding: 0 5%
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+
+  i
+    font-size: 1.5em
+    font-size: 3vmin
+    font-style: normal
+    opacity: .7
+  small
+    display: block
+    font-size: 1.5em
+    font-size: 2.5vmin
+    opacity: .8
+    width: 100%
+    min-height: 3vmin
+  time
+    display: block
+    font-size: 1.2em
+    font-size: 2vmin
+    opacity: .7
+    position: absolute
+    bottom: 10%
+    left: 0
+    text-align: center
+    width: 100%
 
 .build__name
   font-weight: 700
   margin: 0
 
 .bubble
-  color: white
-  flex: 1 0 0px
   text-align: center
   transition: background-color 0.5s ease-in-out
+  width: 100%
+  display: block
 
-.bubble--inactive
+.build--inactive
   background: $inactive
 
-.bubble--failure
+.build--failure
   background: $failure
 
-.bubble--success
+.build--success
   background: $success
 
-.bubble--building
+.build--building
   background: $building
+  -webkit-animation: status-building-background 2s ease infinite
+  -moz-animation: status-building-background 2s ease infinite
+  -ms-animation: status-building-background 2s ease infinite
+
+@-webkit-keyframes status-building-background
+  0%
+    background-color: $building
+  50%
+    background-color: darken($building, 10%)
+  100%
+    background-color: $building
+
+@keyframes status-building-background
+  0%
+    background-color: $building
+  50%
+    background-color: darken($building, 10%)
+  100%
+    background-color: $building
+

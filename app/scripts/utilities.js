@@ -15,6 +15,13 @@ BuildboxMonitor.utilities = {
 
   dasherize: function(str) {
     return str.replace(/([\s\(\)]+)/g, '-').replace(/\-$/, '').toLowerCase();
+  },
+
+  friendlyDate: function(timestamp) {
+    if(timestamp == undefined) return "N/A"
+
+    time = moment(timestamp).fromNow();
+    return time;
   }
 
 }
