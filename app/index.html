@@ -42,8 +42,8 @@
   <!-- endbuild -->
 
   <script type="text/html" id="build_template">
-    <section class="build build--<%= lastStatus %> build--<%= activity %>">
-      <div id="<%= name %>" class="bubble bubble--<%= lastStatus %> bubble--<%= activity %>">
+    <section id="<%= BuildboxMonitor.utilities.dasherize(name) %>" class="build build--<%= lastStatus %> build--<%= activity %>">
+      <div class="bubble bubble--<%= lastStatus %> bubble--<%= activity %>">
         <i><%= currentStatus %></i>
         <h2 class="build__name"><%= BuildboxMonitor.utilities.humanize(name) %></h2>
         <small><%= lastBuildLabel %></small>

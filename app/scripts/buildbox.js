@@ -35,7 +35,7 @@
         lastBuildLabel = "#" + lastBuildLabel
 
       if(rendered.indexOf(name) > -1) {
-        updateStatus(name, lastStatus, activity, currentStatus);
+        updateStatus(name, lastStatus, activity, currentStatus, lastBuildLabel, lastBuildTimeStamp);
       } else {
         renderRow(currentRow, { name: name, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity, lastBuildLabel: lastBuildLabel, lastBuildTimeStamp: lastBuildTimeStamp });
         rendered.push(name);
@@ -74,10 +74,12 @@
     return project.getAttribute('lastBuildStatus').toLowerCase();
   }
 
-  var updateStatus = function(buildName, lastStatus, activity, currentStatus) {
-    var build = document.getElementById(buildName);
-    build.className = 'bubble bubble--' + lastStatus + ' bubble--' + activity ;
-    build.innerHTML = utilities.humanize(currentStatus);
+  var updateStatus = function(buildName, lastStatus, activity, currentStatus, lastBuildLabel, lastBuildTimeStamp) {
+    // console.log("updateStatus:", buildName, lastStatus, activity, currentStatus, lastBuildLabel, lastBuildTimeStamp);
+
+    var build = document.getElementById(utilities.dasherize(buildName));
+    template = tmpl("build_template", { name: buildName, lastStatus: lastStatus, currentStatus: currentStatus, activity: activity, lastBuildLabel: lastBuildLabel, lastBuildTimeStamp: lastBuildTimeStamp });
+    build.outerHTML = template;
   }
 
   var renderRow = function(row, dataObj){
