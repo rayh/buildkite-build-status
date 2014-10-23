@@ -83,12 +83,12 @@ io.on('connection', function (socket) {
   });
 
   // Poll for build status
-  // setInterval(function() {
-  //   request.get(pollUrl, function (error, response, body) {
-  //     status = processXMLResponse(body);
-  //     socket.emit('build_status', status);
-  //   });
-  // }, settings.pollInterval);
+  setInterval(function() {
+    request.get(pollUrl, function (error, response, body) {
+      status = processXMLResponse(body);
+      socket.emit('build_status', status);
+    });
+  }, settings.pollInterval);
 });
 
 server.listen(5005);

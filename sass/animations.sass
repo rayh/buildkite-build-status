@@ -3,16 +3,11 @@
 @-webkit-keyframes building
   0%
     background-color: $building
+  25%
+    background-color: adjust-hue($building, 10)
   50%
-    background-color: darken($building, 20%)
+    background-color: $building
+  75%
+    background-color: adjust-hue($building, -10)
   100%
     background-color: $building
-
-@keyframes building
-  0%
-    background-color: $building
-  50%
-    background-color: darken($building, 20%)
-  100%
-    background-color: $building
-
