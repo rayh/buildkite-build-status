@@ -9,7 +9,8 @@
 </head>
 
 <body>
-  <div class="builds"></div>
+
+  <div class="builds"><h1>Fetching data&hellip;</h1></div>
 
   <script src="scripts/micro_templates.js"></script>
   <script src="scripts/buildbox.js"></script>
@@ -17,11 +18,11 @@
   <script type="text/html" id="build_template">
     <section id="<%= identifier %>" class="build build--<%= status %>">
       <div class="bubble">
-        <i><%= friendlyStatus %></i>
+        <i class="build__status"><%= friendlyStatus %></i>
         <h2 class="build__name"><%= name %></h2>
-        <small><%= buildNumber %></small>
+        <small class="build__number"><%= buildNumber %></small>
 
-        <time>Last build: <%= timeStamp %></time>
+        <time class="build__time">Last build: <%= timeStamp %></time>
       </div>
     </section>
   </script>

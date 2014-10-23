@@ -1,6 +1,6 @@
 body {
   box-sizing: border-box;
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, arial, sans-serif;
+  font-family: 'Signika Negative', 'Helvetica Neue', Helvetica, arial, sans-serif;
   margin: 0;
   padding: 0;
   background: #e7e7de;
@@ -23,6 +23,8 @@ body {
   flex: 1 0 0px;
   flex-direction: row;
   width: 100%; }
+  .row:first-child .build {
+    margin-top: 1em; }
 
 .build {
   display: flex;
@@ -30,45 +32,42 @@ body {
   flex: 1 0 0px;
   align-items: center;
   justify-content: center;
-  margin: 1em;
+  margin: 0 1em 1em;
   overflow: hidden;
   position: relative; }
-  .build h2 {
-    font-size: 2em;
-    font-size: 4vmin;
-    line-height: 2em;
-    line-height: 7vmin;
-    width: 90%;
-    padding: 0 5%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; }
-  .build i {
-    font-size: 1.5em;
-    font-size: 3vmin;
-    font-style: normal;
-    opacity: 0.7; }
-  .build small {
-    display: block;
-    font-size: 1.5em;
-    font-size: 2.5vmin;
-    opacity: 0.8;
-    width: 100%;
-    min-height: 3vmin; }
-  .build time {
-    display: block;
-    font-size: 1.2em;
-    font-size: 2vmin;
-    opacity: 0.7;
-    position: absolute;
-    bottom: 10%;
-    left: 0;
-    text-align: center;
-    width: 100%; }
 
 .build__name {
+  font-size: 4.3vmin;
   font-weight: 700;
-  margin: 0; }
+  line-height: 7vmin;
+  overflow: hidden;
+  margin: 0;
+  padding: 0 5%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 90%; }
+
+.build__status {
+  font-size: 3vmin;
+  font-style: normal;
+  opacity: 0.7; }
+
+.build__number {
+  display: block;
+  font-size: 2.5vmin;
+  min-height: 3vmin;
+  opacity: 0.8;
+  width: 100%; }
+
+.build__time {
+  bottom: 10%;
+  display: block;
+  font-size: 2vmin;
+  left: 0;
+  opacity: 0.7;
+  position: absolute;
+  text-align: center;
+  width: 100%; }
 
 .bubble {
   text-align: center;
@@ -96,7 +95,7 @@ body {
     background-color: #EEAE32; }
 
   50% {
-    background-color: #ac760e; }
+    background-color: #d8a748; }
 
   100% {
     background-color: #EEAE32; } }
@@ -106,7 +105,7 @@ body {
     background-color: #EEAE32; }
 
   50% {
-    background-color: #ac760e; }
+    background-color: #f9b227; }
 
   100% {
     background-color: #EEAE32; } }

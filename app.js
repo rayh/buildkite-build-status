@@ -30,7 +30,7 @@ processXMLResponse = function(xml) {
     var projectStatus       = getCurrentStatus(getLastStatus(project), projectActivity);
 
     status = {
-      name:                 projectName,
+      name:                 utils.humanize(projectName),
       identifier:           utils.dasherize(projectName),
       status:               utils.dasherize(projectStatus),
       friendlyStatus:       projectStatus,
@@ -78,15 +78,11 @@ getLastStatus = function(project) {
 
 io.on('connection', function (socket) {
 
-  emitBuildStatus = function (status) {
-    socket.emit('build_status', status);
-  }
-
   // Poll for build status
   setInterval(function() {
     request.get(pollUrl, function (error, response, body) {
       status = processXMLResponse(body);
-      emitBuildStatus(status);
+      socket.emit('build_status', status);
     });
   }, settings.pollInterval);
 });
