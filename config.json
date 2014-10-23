@@ -1,0 +1,7 @@
+{
+  "project": "hooroo",
+  "apiKey": "12afcf8919720e7784240ef6ebd994d1",
+  "buildsPerRow": 2,
+  "pollInterval": 10000,
+  "whitelist": "hotels-master, flightbooking-events-master, hotels-releases-master, docker-images-master"
+}
