@@ -78,13 +78,18 @@ getLastStatus = function(project) {
 
 io.on('connection', function (socket) {
 
+  request.get(pollUrl, function (error, response, body) {
+    status = processXMLResponse(body);
+    socket.emit('build_status', status);
+  });
+
   // Poll for build status
-  setInterval(function() {
-    request.get(pollUrl, function (error, response, body) {
-      status = processXMLResponse(body);
-      socket.emit('build_status', status);
-    });
-  }, settings.pollInterval);
+  // setInterval(function() {
+  //   request.get(pollUrl, function (error, response, body) {
+  //     status = processXMLResponse(body);
+  //     socket.emit('build_status', status);
+  //   });
+  // }, settings.pollInterval);
 });
 
 server.listen(5005);

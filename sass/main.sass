@@ -1,4 +1,5 @@
 @import "config"
+@import "animations"
 
 body
   box-sizing: border-box
@@ -91,23 +92,6 @@ body
 
 .build--building
   background: $building
-  -webkit-animation: status-building-background 2s ease infinite
-  -moz-animation: status-building-background 2s ease infinite
-  -ms-animation: status-building-background 2s ease infinite
-
-@-webkit-keyframes status-building-background
-  0%
-    background-color: $building
-  50%
-    background-color: darken($building, 20%)
-  100%
-    background-color: $building
-
-@keyframes status-building-background
-  0%
-    background-color: $building
-  50%
-    background-color: darken($building, 20%)
-  100%
-    background-color: $building
-
+  -webkit-animation: building 2s ease infinite
+  -moz-animation: building 2s ease infinite
+  -ms-animation: building 2s ease infinite
