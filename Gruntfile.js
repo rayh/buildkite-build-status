@@ -6,12 +6,9 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         express: {
-          options: {
-            // Override defaults here
-          },
           web: {
             options: {
-              script: 'app.js'
+              script: 'app/app.js'
             }
           }
         },

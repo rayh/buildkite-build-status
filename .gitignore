@@ -4,7 +4,5 @@ dist
 .sass-cache
 settings.js
 .ruby-version
-app/bower_components
 public/styles/*.css
-app/styles/*.css
 test/bower_components

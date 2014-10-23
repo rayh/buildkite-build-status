@@ -10,10 +10,9 @@ var sass    = require("node-sass");
 
 var settings = require('./config.json');
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/../public'));
 
 pollUrl = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch=master';
-console.log(pollUrl);
 
 processXMLResponse = function(xml) {
   var doc = jsdom(xml);
