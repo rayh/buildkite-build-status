@@ -30,8 +30,11 @@ var buildRows = function(builds, projects) {
 
 var updateStatus = function(project) {
   var build = document.getElementById(project.identifier);
-  template = tmpl("build_template", project);
-  build.outerHTML = template;
+  build.className = 'build build--' + project.status;
+  build.getElementsByClassName('build__status')[0].innerHTML      = project.friendlyStatus;
+  build.getElementsByClassName('build__name')[0].innerHTML        = project.name;
+  build.getElementsByClassName('build__number')[0].innerHTML      = project.buildNumber;
+  build.getElementsByClassName('build__time-stamp')[0].innerHTML  = project.timeStamp;
 }
 
 var renderRow = function(row, project){

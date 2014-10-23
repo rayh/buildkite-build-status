@@ -30,17 +30,30 @@ body
   &:first-child .build
     margin-top: 1em
 
-
 .build
+  align-items: center
   display: flex
   flex-direction: column
   flex: 1 0 0px
-  align-items: center
   justify-content: center
-
   margin: 0 1em 1em
   overflow: hidden
+  text-align: center
+  transition: background-color 1s ease-in-out
   position: relative
+
+.build--inactive
+  background: $inactive
+
+.build--failure
+  background: $failure
+
+.build--success
+  background: $success
+
+.build--building
+  background: $building
+  // -webkit-animation: building 5s ease infinite
 
 .build__name
   font-size: 4.3vmin
@@ -72,24 +85,4 @@ body
   left: 0
   opacity: .7
   position: absolute
-  text-align: center
   width: 100%
-
-.bubble
-  text-align: center
-  transition: background-color 0.5s ease-in-out
-  width: 100%
-  display: block
-
-.build--inactive
-  background: $inactive
-
-.build--failure
-  background: $failure
-
-.build--success
-  background: $success
-
-.build--building
-  background: $building
-  -webkit-animation: building 5s ease infinite
