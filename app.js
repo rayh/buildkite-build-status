@@ -6,16 +6,14 @@ var server  = require('http').Server(app);
 var io      = require('socket.io')(server);
 var jsdom   = require("jsdom-nogyp").jsdom;
 var utils   = require("./utils");
-
-
-// var initialUrl = 'http://developer:feeling%20tomorrow%20moon@localhost:5000/developer/bookings/for-month?limit=500'
-// var pollUrl = 'https://developer:feeling%20tomorrow%20moon@hotels.hooroo.com/developer/bookings/latest'
+var sass    = require("node-sass");
 
 var settings = require('./config.json');
 
 app.use(express.static(__dirname + '/public'));
 
 pollUrl = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch=master';
+console.log(pollUrl);
 
 processXMLResponse = function(xml) {
   var doc = jsdom(xml);
@@ -23,25 +21,26 @@ processXMLResponse = function(xml) {
   var whitelisted = settings.whitelist;
   projects = applyWhitelist(projects, whitelisted);
 
-  statuses = [];
+  var statuses = [];
+
   for(var i = 0; i < projects.length; i++) {
-    project = projects[i];
-    projectName         = project.getAttribute('name');
-    projectActivity     = project.getAttribute('activity');
-    projectLastStatus   = getLastStatus(project);
+    var project = projects[i];
+    var projectName         = project.getAttribute('name');
+    var projectActivity     = project.getAttribute('activity').toLowerCase();
+    var projectStatus       = getCurrentStatus(getLastStatus(project), projectActivity);
 
     status = {
-      name:                 utils.dasherize(projectName),
-      activity:             projectActivity.toLowerCase(),
-      lastStatus:           projectLastStatus,
-      currentStatus:        getCurrentStatus(projectLastStatus, projectActivity),
-      lastBuildTimeStamp:   utils.friendlyDate(project.getAttribute('lastBuildTime')),
-      lastBuildLabel:       getBuildLabel(project)
+      name:                 projectName,
+      identifier:           utils.dasherize(projectName),
+      status:               utils.dasherize(projectStatus),
+      friendlyStatus:       projectStatus,
+      timeStamp:            utils.friendlyDate(project.getAttribute('lastbuildtime')),
+      buildNumber:          getBuildNumber(project)
     }
     statuses.push(status);
   }
-  console.log(statuses);
-
+  // console.log(statuses);
+  return statuses;
 }
 
 applyWhitelist = function(projects, whitelistedProjects) {
@@ -54,8 +53,8 @@ applyWhitelist = function(projects, whitelistedProjects) {
   return newProjects;
 }
 
-getBuildLabel = function(project) {
-  var buildLabel = project.getAttribute('lastBuildLabel');
+getBuildNumber = function(project) {
+  var buildLabel = project.getAttribute('lastbuildlabel');
   if(buildLabel == undefined)
     buildLabel = "";
   else
@@ -71,34 +70,25 @@ getCurrentStatus = function(lastStatus, activity) {
 }
 
 getLastStatus = function(project) {
-  if (!project.getAttribute('lastBuildStatus')) {
+  if (!project.getAttribute('lastbuildstatus')) {
     return 'inactive';
   }
-  return project.getAttribute('lastBuildStatus').toLowerCase();
+  return project.getAttribute('lastbuildstatus').toLowerCase();
 }
-
-emitBuildStatus = function () {
-  socket.emit('build_status', {
-
-  });
-}
-
 
 io.on('connection', function (socket) {
 
-  request.get(pollUrl, function (error, response, body) {
-    processXMLResponse(body);
-    // emitBuildStatus();
-  });
+  emitBuildStatus = function (status) {
+    socket.emit('build_status', status);
+  }
 
   // Poll for build status
-  var lastBookingId;
-
-  // setInterval(function() {
-  //   request.get(pollUrl, function (error, response, body) {
-  //     emitBuildStatus();
-  //   });
-  // }, settings.pollInterval);
+  setInterval(function() {
+    request.get(pollUrl, function (error, response, body) {
+      status = processXMLResponse(body);
+      emitBuildStatus(status);
+    });
+  }, settings.pollInterval);
 });
 
 server.listen(5005);

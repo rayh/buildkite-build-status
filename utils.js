@@ -1,3 +1,5 @@
+var moment = require("moment");
+
 module.exports = {
   humanize: function(str) {
     str = str.replace(/-/g, ' ');

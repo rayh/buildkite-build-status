@@ -3,12 +3,39 @@
 <head>
   <meta charset="utf-8" />
   <script src="/socket.io/socket.io.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Signika+Negative:400,600,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles/main.css">
+
 </head>
 
 <body>
+  <div class="builds"></div>
+
+  <script src="scripts/micro_templates.js"></script>
+  <script src="scripts/buildbox.js"></script>
+
+  <script type="text/html" id="build_template">
+    <section id="<%= identifier %>" class="build build--<%= status %>">
+      <div class="bubble">
+        <i><%= friendlyStatus %></i>
+        <h2 class="build__name"><%= name %></h2>
+        <small><%= buildNumber %></small>
+
+        <time>Last build: <%= timeStamp %></time>
+      </div>
+    </section>
+  </script>
+
+  <script type="text/html" id="row_template">
+    <div class="row row<%= rowNumber %>" id="row<%= rowNumber %>"></div>
+  </script>
+
+
   <script type="text/javascript">
-    io.connect().on('build_status', function (status) {
+    io.connect().on('build_status', function (projects) {
+      process(projects);
     });
   </script>
+
 </body>
 </html>
