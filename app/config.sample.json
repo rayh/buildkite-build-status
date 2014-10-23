@@ -1,0 +1,7 @@
+{
+  "project": "<project_name>",
+  "apiKey": "<api_key>",
+  "buildsPerRow": 2,
+  "pollInterval": 10000,
+  "whitelist": "<projects_to_whitelist>"
+}
