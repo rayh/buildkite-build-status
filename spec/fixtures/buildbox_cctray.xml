@@ -1,0 +1,11 @@
+<Projects>
+<Project name="Hotels Releases (master)" activity="Sleeping" webUrl="https://buildbox.io/hooroo/hotels-releases/builds?branch=master"/>
+<Project name="Places (master)" activity="Sleeping" webUrl="https://buildbox.io/hooroo/places/builds?branch=master"/>
+<Project name="Flightbookings (master)" activity="Sleeping" webUrl="https://buildbox.io/hooroo/flightbookings/builds?branch=master"/>
+<Project name="flightbooking-events (master)" activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="13" lastBuildTime="2014-W42-7T23:06:42+00:00" webUrl="https://buildbox.io/hooroo/flightbooking-events/builds?branch=master"/>
+<Project name="Madoff (master)" activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="3" lastBuildTime="2014-W42-3T23:03:18+00:00" webUrl="https://buildbox.io/hooroo/madoff/builds?branch=master"/>
+<Project name="Hotels DB Whitewash (master)" activity="Sleeping" webUrl="https://buildbox.io/hooroo/hotels-db-whitewash/builds?branch=master"/>
+<Project name="Docker Images (master)" activity="Building" lastBuildStatus="Success" lastBuildLabel="51" lastBuildTime="2014-W44-1T02:51:54+00:00" webUrl="https://buildbox.io/hooroo/docker-images-1/builds?branch=master"/>
+<Project name="Hotels (master)" activity="Sleeping" lastBuildStatus="Failure" lastBuildLabel="255" lastBuildTime="2014-W44-1T01:23:56+00:00" webUrl="https://buildbox.io/hooroo/hotels/builds?branch=master"/>
+<Project name="artifact-test (master)" activity="Sleeping" webUrl="https://buildbox.io/hooroo/artifact-test/builds?branch=master"/>
+</Projects>

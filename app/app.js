@@ -38,7 +38,6 @@ processXMLResponse = function(xml) {
     }
     statuses.push(status);
   }
-  // console.log(statuses);
   return statuses;
 }
 

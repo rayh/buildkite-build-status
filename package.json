@@ -15,7 +15,8 @@
     "grunt-sass": "",
     "grunt-express-server": "",
     "grunt-parallel": "",
-    "load-grunt-tasks": ""
+    "load-grunt-tasks": "",
+    "jasmine-node": "~1.14.5"
   },
   "engines": {
     "node": ">=0.8.0"
