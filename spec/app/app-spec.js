@@ -1,24 +1,25 @@
 var specHelper = require("../spec-helper");
 var app = require("../../app/app");
 
+var whitelist;
 
-// describe("applyWhitelist", function () {
-//   it("should filter non-whitelisted specs", function () {
+beforeEach(function() {
+  settings.whitelist = [ 'hotels', 'flightbookings' ];
+});
 
-//     var doc = specHelper.jsdom(xml);
-//     var projects = doc.getElementsByTagName('Project');
+describe("processXMLResponse", function () {
+  it("generates the correct payload", function () {
 
-//     var whitelist = [ 'hotels-master', 'flightbookings-master' ];
-//     var whiteListed = applyWhitelist(projects, whitelist);
+    var statuses = processXMLResponse(xml);
+    var payload = [
+      { name: 'Flightbookings (master)', identifier: 'flightbookings-master', status: 'inactive', friendlyStatus: 'Inactive', timeStamp: 'N/A', buildNumber: '#1337' },
+      { name: 'Hotels (master)', identifier: 'hotels-master', status: 'failure', friendlyStatus: 'Failure', timeStamp: '4 hours ago', buildNumber: '#255' }
+    ]
 
-//     console.log(applyWhitelist(projects, whitelist)[0].getAttribute('name'));
+    expect( statuses ).toEqual( payload );
 
-//     expect( whiteListed.length ).toBe( 2 );
-//     expect( whiteListed[0].getAttribute('name') ).toBe( 'Flightbookings (master)' );
-//     expect( whiteListed[1].getAttribute('name') ).toBe( 'Hotels (master)' );
-
-//   });
-// });
+  });
+});
 
 describe("applyWhitelist", function () {
   it("should filter non-whitelisted specs", function () {
@@ -26,8 +27,7 @@ describe("applyWhitelist", function () {
     var doc = specHelper.jsdom(xml);
     var projects = doc.getElementsByTagName('Project');
 
-    var whitelist = [ 'hotels', 'flightbookings' ];
-    var whiteListed = applyWhitelist(projects, whitelist);
+    var whiteListed = applyWhitelist(projects, settings.whitelist);
 
     expect( whiteListed.length ).toBe( 2 );
     expect( whiteListed[0].getAttribute('name') ).toBe( 'Flightbookings (master)' );
