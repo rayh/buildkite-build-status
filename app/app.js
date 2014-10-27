@@ -12,12 +12,12 @@ var settings = require('./config.json');
 
 app.use(express.static(__dirname + '/../public'));
 
-pollUrl = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch=master';
+pollUrl = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch='+settings.branch;
 
 processXMLResponse = function(xml) {
   var doc = jsdom(xml);
   var projects = doc.getElementsByTagName('Project');
-  var whitelisted = settings.whitelist;
+  var whitelisted = settings.whitelist.split(',')
   projects = applyWhitelist(projects, whitelisted);
 
   var statuses = [];
@@ -44,8 +44,14 @@ processXMLResponse = function(xml) {
 
 applyWhitelist = function(projects, whitelistedProjects) {
   newProjects = []
+
+  whiteListedProjectsWithBranch = []
+  for(project in whitelistedProjects){
+    whiteListedProjectsWithBranch.push(whitelistedProjects[project]+'-'+settings.branch)
+  }
+  console.log(whiteListedProjectsWithBranch)
   for(var i = 0; i < projects.length; i++) {
-    if( whitelistedProjects.indexOf( utils.dasherize(projects[i].getAttribute('name')) ) >= 0 ) {
+    if( whiteListedProjectsWithBranch.indexOf( utils.dasherize(projects[i].getAttribute('name')) ) >= 0 ) {
       newProjects.push( projects[i] );
     }
   }
