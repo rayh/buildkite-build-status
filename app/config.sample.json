@@ -2,5 +2,6 @@
   "project": "<project_name>",
   "apiKey": "<api_key>",
   "pollInterval": 10000,
-  "whitelist": "<projects_to_whitelist>"
+  "whitelist": ["<projects_to_whitelist>"],
+  "branch": "master"
 }
