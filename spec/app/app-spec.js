@@ -1,8 +1,6 @@
 var specHelper = require("../spec-helper");
 var app = require("../../app/app");
 
-var whitelist;
-
 beforeEach(function() {
   settings.whitelist = [ 'hotels', 'flightbookings' ];
 });

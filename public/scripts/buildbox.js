@@ -5,7 +5,7 @@ var process = function(projects) {
   if(rendered.length == 0) { buildRows(builds, projects); }
 
   for(var i = 0; i < projects.length; i++) {
-    console.log("looping...");
+    console.info("looping...");
 
     var project = projects[i];
     var currentRow = document.getElementById("row" + Math.ceil((i+1) / buildsPerRow));
