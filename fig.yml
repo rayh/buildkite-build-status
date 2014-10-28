@@ -1,5 +1,5 @@
 app:
-  image: docker-registry.in.jqdev.net/buildbox-build-status:60
+  image: docker-registry.in.jqdev.net/buildbox-build-status:63
   volumes:
     - .:/application
   working_dir: /application
