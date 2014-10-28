@@ -1,0 +1,6 @@
+app:
+  image: docker-registry.in.jqdev.net/buildbox-build-status:60
+  volumes:
+    - .:/application
+  working_dir: /application
+  # entrypoint: /application/buildbox/do-bundle
