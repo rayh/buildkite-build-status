@@ -3,5 +3,5 @@ set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-npm install
-jasmine-node --forceexit spec
+/usr/bin/npm install
+./node_modules/.bin/jasmine-node --forceexit spec
