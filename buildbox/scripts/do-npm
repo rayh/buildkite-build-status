@@ -12,7 +12,7 @@ if [ -z "$DOCKER_HOST" ]; then
   chown -R application:application ~application/.ssh /vendor/bundle
   chmod 0600 ~application/.ssh/id_rsa
 
-  su application -c "/usr/bin/npm install"
+  su application -c "npm install"
   su application -c "$@"
 else
   npm install
