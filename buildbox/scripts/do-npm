@@ -4,10 +4,6 @@ set -x
 
 ssh-keyscan -H github.com >> /etc/ssh/ssh_known_hosts
 
-echo "$(which node)"
-echo "$(ls -l /usr/bin/)"
-echo "$DOCKER_HOST"
-
 if [ -z "$DOCKER_HOST" ]; then
   groupadd --gid $BUILDBOX_AGENT_GID application
   useradd --uid $BUILDBOX_AGENT_UID --gid $BUILDBOX_AGENT_GID --create-home application
