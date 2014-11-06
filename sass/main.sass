@@ -3,14 +3,15 @@
 
 body
   box-sizing: border-box
+  background: $body
+  color: $body-text
   font-family: 'Signika Negative', 'Helvetica Neue', Helvetica, arial, sans-serif
   margin: 0
   padding: 0
-  background: $body
-  color: $text-color
 
 .builds
   align-content: center
+  color: $build-color
   display: flex
   flex-direction: column
   flex-wrap: nowrap
@@ -20,6 +21,10 @@ body
   position: absolute
   padding: 0
   width: 100%
+
+.builds__fetching
+  color: $body-text
+  font-size: 5vmin
 
 .row
   display: flex
@@ -60,7 +65,7 @@ body
   // -webkit-animation: building 5s ease infinite
 
 .build__name
-  font-size: 4.3vmin
+  font-size: 5vmin
   font-weight: 700
   line-height: 7vmin
   overflow: hidden
@@ -85,7 +90,7 @@ body
 .build__time
   bottom: 10%
   display: block
-  font-size: 2vmin
+  font-size: 2.5vmin
   left: 0
   opacity: .7
   position: absolute
