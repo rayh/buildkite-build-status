@@ -4,18 +4,5 @@ set -x
 
 ssh-keyscan -H github.com >> /etc/ssh/ssh_known_hosts
 
-if [ -z "$DOCKER_HOST" ]; then
-  groupadd --gid $BUILDBOX_AGENT_GID application
-  useradd --uid $BUILDBOX_AGENT_UID --gid $BUILDBOX_AGENT_GID --create-home application
-  mkdir ~application/.ssh
-  cp /root/.ssh/id_rsa ~application/.ssh/id_rsa
-  chown -R application:application ~application/.ssh /vendor/bundle
-  chmod 0600 ~application/.ssh/id_rsa
-
-  su application -c "npm install"
-  su application -c "$@"
-else
-  npm install
-  exec "$@"
-fi
-
+npm install
+exec "$@"
