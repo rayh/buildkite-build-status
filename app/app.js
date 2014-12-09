@@ -26,12 +26,14 @@ processXMLResponse = function(xml) {
     var project = projects[i];
     var projectName         = project.getAttribute('name');
     var projectActivity     = project.getAttribute('activity').toLowerCase();
-    var projectStatus       = getCurrentStatus(getLastStatus(project), projectActivity);
+    var projectLastStatus   = getLastStatus(project);
+    var projectStatus       = getCurrentStatus(projectLastStatus, projectActivity);
 
     status = {
       name:                 utils.humanize(projectName),
       identifier:           utils.dasherize(projectName),
       status:               utils.dasherize(projectStatus),
+      lastStatus:           projectLastStatus,
       friendlyStatus:       projectStatus,
       timeStamp:            utils.friendlyDate(project.getAttribute('lastbuildtime')),
       buildNumber:          getBuildNumber(project)

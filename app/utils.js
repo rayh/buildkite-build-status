@@ -6,16 +6,17 @@ module.exports = {
     words = str.split(' ');
 
     for(var i = 0; i < words.length; i++) {
-      var letters = words[i].split('');
-      var firstLetter = letters.shift();
-      words[i] = firstLetter.toUpperCase() + letters.join('');
+      if (words[i].length > 0) {
+        var letters = words[i].split('');
+        var firstLetter = letters.shift();
+        words[i] = firstLetter.toUpperCase() + letters.join('');
+      }
     }
-
     return words.join(' ');
   },
 
   dasherize: function(str) {
-    return str.replace(/([\s\(\)]+)/g, '-').replace(/\-$/, '').toLowerCase();
+    return str.replace(/([\s\(\)\-]+)/g, '-').replace(/\-$/, '').toLowerCase();
   },
 
   friendlyDate: function(timestamp) {
