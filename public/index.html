@@ -13,10 +13,11 @@
   <div class="builds"><h1 class="builds__fetching">Fetching data&hellip;</h1></div>
 
   <script src="scripts/micro_templates.js"></script>
-  <script src="scripts/buildbox.js"></script>
+  <script src="scripts/buildkite.js"></script>
 
   <script type="text/html" id="build_template">
     <section id="<%= identifier %>" class="build build--<%= dashedStatus %>">
+      <span class="build__prior-status-message">Previously: <i class="build__prior-status"><%= priorStatus %></i></span>
       <i class="build__status"><%= status %></i>
       <h2 class="build__name"><%= name %></h2>
       <small class="build__number"><%= buildNumber %></small>
@@ -32,7 +33,7 @@
 
   <script type="text/javascript">
     io.connect().on('build_status', function (projects) {
-      buildBox.process(projects);
+      buildKite.process(projects);
     });
   </script>
 

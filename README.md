@@ -21,7 +21,7 @@ You can start the server by running `grunt` or simply `node app/app.js` and acce
 
 ## Other config values
 
-You can change the colours by editing `public/sass/config.sass` and the number of builds per row on `public/scripts/buildbox.js` (yeah this kind of sucks. I'm working on it).
+You can change the colours by editing `public/sass/config.sass` and the number of builds per row on `public/scripts/buildkite.js` (yeah this kind of sucks. I'm working on it).
 
 ## Wanna help out?
 

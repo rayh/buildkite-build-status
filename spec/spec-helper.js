@@ -8,7 +8,7 @@ require.extensions['.html'] = function (module, filename) {
 };
 
 module.exports.jsdom = require("jsdom-nogyp").jsdom;
-module.exports.xml = require("./fixtures/buildbox_cctray.xml");
+module.exports.xml = require("./fixtures/buildkite_cctray.xml");
 module.exports.page = require("../public/index.html");
 module.exports.settings = require('../app/config.json');
 
