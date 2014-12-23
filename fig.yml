@@ -1,5 +1,5 @@
 app:
-  image: docker-registry.in.jqdev.net/buildkite-build-status:63
+  image: docker-registry.in.jqdev.net/buildkite-build-status:162
   volumes:
     - .:/application
   working_dir: /application
