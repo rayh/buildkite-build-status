@@ -12,7 +12,7 @@ var settings = require('./config.json');
 
 app.use(express.static(__dirname + '/../public'));
 
-pollUrl = 'https://cc.buildbox.io/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch='+settings.branch;
+pollUrl = 'https://cc.buildkite.com/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch='+settings.branch;
 
 processXMLResponse = function(xml) {
   var doc = jsdom(xml);
