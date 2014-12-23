@@ -1,6 +1,6 @@
 var specHelper = require("../../spec-helper");
 var tmpl = require("../../../public/scripts/micro_templates");
-var buildKite = require("../../../public/scripts/buildkite").buildKite;
+var buildkite = require("../../../public/scripts/buildkite").buildkite;
 
 var buildTemplate;
 
@@ -16,7 +16,7 @@ describe("process", function () {
 
   it("renders the document structure properly", function () {
 
-    buildKite.process(payload);
+    buildkite.process(payload);
 
     var builds = document.getElementsByClassName('builds')[0];
     var rows = builds.getElementsByClassName('row');

@@ -1,6 +1,6 @@
-# BuildKite Build Status Monitor
+# Buildkite Build Status Monitor
 
-A node.js-based web monitor for BuildKite projects.
+A node.js-based web monitor for Buildkite projects.
 
 ![A screenshot of the monitor](http://i.imgur.com/TF21hK8.png "A screenshot of the monitor")
 

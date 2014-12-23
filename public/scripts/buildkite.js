@@ -1,4 +1,4 @@
-var buildKite = {
+var buildkite = {
 
   buildsPerRow: 2,
   rendered: [],
@@ -49,4 +49,4 @@ var buildKite = {
 
 }
 
-exports.buildKite = buildKite;
+exports.buildkite = buildkite;
