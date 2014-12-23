@@ -33,8 +33,8 @@ var buildBox = {
 
   updateStatus: function(project) {
     var build = document.getElementById(project.identifier);
-    build.className = 'build build--' + project.status;
-    build.getElementsByClassName('build__status')[0].innerHTML      = project.friendlyStatus;
+    build.className = 'build build--' + project.dashedStatus;
+    build.getElementsByClassName('build__status')[0].innerHTML      = project.status;
     build.getElementsByClassName('build__name')[0].innerHTML        = project.name;
     build.getElementsByClassName('build__number')[0].innerHTML      = project.buildNumber;
     build.getElementsByClassName('build__time-stamp')[0].innerHTML  = project.timeStamp;

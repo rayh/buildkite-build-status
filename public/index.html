@@ -16,8 +16,8 @@
   <script src="scripts/buildbox.js"></script>
 
   <script type="text/html" id="build_template">
-    <section id="<%= identifier %>" class="build build--<%= status %>">
-      <i class="build__status"><%= friendlyStatus %></i>
+    <section id="<%= identifier %>" class="build build--<%= dashedStatus %>">
+      <i class="build__status"><%= status %></i>
       <h2 class="build__name"><%= name %></h2>
       <small class="build__number"><%= buildNumber %></small>
 

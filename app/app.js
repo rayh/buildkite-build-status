@@ -24,17 +24,17 @@ processXMLResponse = function(xml) {
 
   for(var i = 0; i < projects.length; i++) {
     var project = projects[i];
-    var projectName         = project.getAttribute('name');
-    var projectActivity     = project.getAttribute('activity').toLowerCase();
-    var projectLastStatus   = getLastStatus(project);
-    var projectStatus       = getCurrentStatus(projectLastStatus, projectActivity);
+    var projectName           = project.getAttribute('name');
+    var projectActivity       = project.getAttribute('activity').toLowerCase();
+    var projectPriorStatus    = getPriorStatus(project);
+    var projectCurrentStatus  = getCurrentStatus(projectPriorStatus, projectActivity);
 
     status = {
       name:                 utils.humanize(projectName),
       identifier:           utils.dasherize(projectName),
-      status:               utils.dasherize(projectStatus),
-      lastStatus:           projectLastStatus,
-      friendlyStatus:       projectStatus,
+      priorStatus:          utils.humanize(projectPriorStatus),
+      status:               utils.humanize(projectCurrentStatus),
+      dashedStatus:         utils.dasherize(projectCurrentStatus),
       timeStamp:            utils.friendlyDate(project.getAttribute('lastbuildtime')),
       buildNumber:          getBuildNumber(project)
     }
@@ -67,14 +67,14 @@ getBuildNumber = function(project) {
   return buildLabel;
 }
 
-getCurrentStatus = function(lastStatus, activity) {
+getCurrentStatus = function(priorStatus, activity) {
   if(activity == "building") {
-    return utils.humanize(activity);
+    return activity;
   }
-  return utils.humanize(lastStatus);
+  return priorStatus;
 }
 
-getLastStatus = function(project) {
+getPriorStatus = function(project) {
   if (!project.getAttribute('lastbuildstatus')) {
     return 'inactive';
   }
