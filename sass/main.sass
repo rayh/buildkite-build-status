@@ -41,7 +41,7 @@ body
   display: flex
   flex-direction: column
   flex: 1 0 0px
-  justify-content: center
+  justify-content: space-around
   margin: 0 0 1em 1em
   overflow: hidden
   text-align: center
@@ -64,7 +64,6 @@ body
   background-color: $building
   background-image: url(../images/building.png)
   background-position: 0px 0px
-
   -webkit-animation: building 1.25s linear infinite
 
 .build__name
@@ -91,19 +90,36 @@ body
   width: 100%
 
 .build__time
-  bottom: 7%
   display: block
   font-size: 2.5vmin
-  left: 0
   opacity: .7
-  position: absolute
   width: 100%
 
-// .build__time
-//   bottom: 7%
-//   display: block
-//   font-size: 2.5vmin
-//   left: 0
-//   opacity: .7
-//   position: absolute
-//   width: 100%
+.build__prior-status-message
+  height: 3.5vmin
+  position: absolute
+  right: 2.5%
+  top: 2.5%
+
+.build__prior-status-header
+  display: inline-block
+  font-size: 2.5vmin
+  height: 100%
+  opacity: .7
+  vertical-align: middle
+
+.build__prior-status
+  border-radius: 100%
+  display: inline-block
+  height: 100%
+  margin-left: .5vmin
+  text-indent: 100%
+  vertical-align: middle
+  width: 3.5vmin
+
+  &.Success
+    background: $success
+    border: 1px solid darken($success, 10)
+  &.Failure
+    background: $failure
+    border: 1px solid darken($failure, 10)
