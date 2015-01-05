@@ -17,12 +17,10 @@
 
   <script type="text/html" id="build_template">
     <section id="<%= identifier %>" class="build build--<%= dashedStatus %>">
-      <% if(dashedStatus=='building') { %>
-        <span class="build__prior-status-message">
+        <span class="build__prior-status-message build__prior-status-message--<%= dashedStatus %>">
           <span class="build__prior-status-header">Previously: </span>
           <i class="build__prior-status <%= priorStatus %>"><%= priorStatus %></i>
         </span>
-      <% } %>
       <i class="build__status"><%= status %></i>
       <h2 class="build__name"><%= name %></h2>
       <small class="build__number"><%= buildNumber %></small>
