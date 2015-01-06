@@ -13,6 +13,6 @@ module.exports.page = require("../public/index.html");
 module.exports.settings = require('../app/config.json');
 
 module.exports.payload = [
-  { name: 'Flightbookings (master)', identifier: 'flightbookings-master', dashedStatus: 'inactive', priorStatus: 'Inactive', status: 'Inactive', timeStamp: 'N/A', buildNumber: '#1337' },
-  { name: 'Hotels (master)', identifier: 'hotels-master', dashedStatus: 'failure', priorStatus: 'Failure', status: 'Failure', timeStamp: 'N/A', buildNumber: '#255' }
+  { name: 'Flightbookings (master)', identifier: 'flightbookings-master', dashedStatus: 'inactive', priorStatus: 'Inactive', dashedPriorStatus: 'inactive', status: 'Inactive', timeStamp: 'N/A', buildNumber: '#1337' },
+  { name: 'Hotels (master)', identifier: 'hotels-master', dashedStatus: 'failure', priorStatus: 'Failure', dashedPriorStatus: 'failure',  status: 'Failure', timeStamp: 'N/A', buildNumber: '#255' }
 ]

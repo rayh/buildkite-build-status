@@ -33,12 +33,13 @@ var buildkite = {
 
   updateStatus: function(project) {
     var build = document.getElementById(project.identifier);
-    build.className = 'build build--' + project.dashedStatus;
+    build.className                                                   = 'build build--' + project.dashedStatus;
+    build.getElementsByClassName('prior-status')[0].className         = 'prior-status prior-status--' + project.dashedPriorStatus;
     build.getElementsByClassName('build__status')[0].innerHTML        = project.status;
-    build.getElementsByClassName('build__prior-status')[0].innerHTML  = project.priorStatus;
     build.getElementsByClassName('build__name')[0].innerHTML          = project.name;
     build.getElementsByClassName('build__number')[0].innerHTML        = project.buildNumber;
     build.getElementsByClassName('build__time-stamp')[0].innerHTML    = project.timeStamp;
+    build.getElementsByClassName('prior-status__status')[0].innerHTML = project.priorStatus;
   },
 
   renderRow: function(row, project){

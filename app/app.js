@@ -33,6 +33,7 @@ processXMLResponse = function(xml) {
       name:                 utils.humanize(projectName),
       identifier:           utils.dasherize(projectName),
       priorStatus:          utils.humanize(projectPriorStatus),
+      dashedPriorStatus:    utils.dasherize(projectPriorStatus),
       status:               utils.humanize(projectCurrentStatus),
       dashedStatus:         utils.dasherize(projectCurrentStatus),
       timeStamp:            utils.friendlyDate(project.getAttribute('lastbuildtime')),

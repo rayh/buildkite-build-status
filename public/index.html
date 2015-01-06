@@ -17,15 +17,14 @@
 
   <script type="text/html" id="build_template">
     <section id="<%= identifier %>" class="build build--<%= dashedStatus %>">
-        <span class="build__prior-status-message build__prior-status-message--<%= dashedStatus %>">
-          <span class="build__prior-status-header">Previously: </span>
-          <i class="build__prior-status <%= priorStatus %>"><%= priorStatus %></i>
+        <span class="prior-status prior-status--<%= priorStatus %>">
+          <span class="prior-status__message">Previously: <span class="prior-status__status"><%= priorStatus %></span></span>
         </span>
-      <i class="build__status"><%= status %></i>
-      <h2 class="build__name"><%= name %></h2>
-      <small class="build__number"><%= buildNumber %></small>
+        <i class="build__status"><%= status %></i>
+        <h2 class="build__name"><%= name %></h2>
+        <small class="build__number"><%= buildNumber %></small>
 
-      <time class="build__time">Last build: <span class="build__time-stamp"><%= timeStamp %></span></time>
+        <time class="build__time">Last build: <span class="build__time-stamp"><%= timeStamp %></span></time>
     </section>
   </script>
 
