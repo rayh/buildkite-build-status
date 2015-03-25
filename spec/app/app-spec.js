@@ -3,7 +3,6 @@ var app = require("../../app/app");
 
 beforeEach(function() {
   settings.whitelist = [ 'hotels', 'flightbookings' ];
-  settings.branch = 'master';
 });
 
 describe("processXMLResponse", function () {

@@ -7,8 +7,15 @@ var io      = require('socket.io')(server);
 var jsdom   = require("jsdom-nogyp").jsdom;
 var utils   = require("./utils");
 var sass    = require("node-sass");
+var fs      = require('fs');
 
-var settings = require('./config.json');
+var settings;
+
+if (fs.existsSync('./config.json')) {
+    settings = ( require('./config.json') );
+} else {
+    settings = require('./config.sample.json');
+}
 
 app.use(express.static(__dirname + '/../public'));
 
