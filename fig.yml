@@ -8,4 +8,3 @@ app:
   volumes:
     - .:/application
   working_dir: /application
-  entrypoint: /application/buildkite/scripts/do-npm
