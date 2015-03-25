@@ -1,5 +1,5 @@
 app:
-  image: docker-registry.in.jqdev.net/buildkite-build-status:162
+  image: docker-registry.in.jqdev.net/buildkite-build-status:213
   environment:
     BUILD_FARM_RUN:
     # Environments from caller
