@@ -4,18 +4,15 @@ var express = require('express');
 var app     = express();
 var server  = require('http').Server(app);
 var io      = require('socket.io')(server);
-var jsdom   = require("jsdom-nogyp").jsdom;
+var jsdom   = require('jsdom-nogyp').jsdom;
 var utils   = require("./utils");
-var sass    = require("node-sass");
+var sass    = require('node-sass');
 var fs      = require('fs');
+var moment  = require('moment');
 
 var settings;
 
-if (fs.existsSync('./config.json')) {
-    settings = ( require('./config.json') );
-} else {
-    settings = require('./config.sample.json');
-}
+settings = ( require('./config.json') );
 
 app.use(express.static(__dirname + '/../public'));
 
@@ -24,8 +21,7 @@ pollUrl = 'https://cc.buildkite.com/' + settings.project + '.xml?api_key=' + set
 processXMLResponse = function(xml) {
   var doc = jsdom(xml);
   var projects = doc.getElementsByTagName('Project');
-  var whitelisted = settings.whitelist;
-  projects = applyWhitelist(projects, whitelisted);
+  projects = activeProjects(projects);
 
   var statuses = [];
 
@@ -44,35 +40,29 @@ processXMLResponse = function(xml) {
       status:               utils.humanize(projectCurrentStatus),
       dashedStatus:         utils.dasherize(projectCurrentStatus),
       timeStamp:            utils.friendlyDate(project.getAttribute('lastbuildtime')),
-      buildNumber:          getBuildNumber(project)
     }
     statuses.push(status);
   }
   return statuses;
 }
 
-applyWhitelist = function(projects, whitelistedProjects) {
-  newProjects = []
-  whiteListedProjectsWithBranch = []
+activeProjects = function(projects) {
+  projectsWithActivity = []
+  var now = moment();
 
-  for(project in whitelistedProjects){
-    whiteListedProjectsWithBranch.push(whitelistedProjects[project] + '-' + settings.branch)
-  }
   for(var i = 0; i < projects.length; i++) {
-    if( whiteListedProjectsWithBranch.indexOf( utils.dasherize(projects[i].getAttribute('name')) ) >= 0 ) {
-      newProjects.push( projects[i] );
+    var date_modified = moment(projects[i].getAttribute('lastbuildtime'));
+    if( isNotBlacklisted(projects[i]) && ( (date_modified && Math.ceil(now.diff(date_modified, 'days', true)) <= settings.daysInactive) || projects[i].getAttribute('activity').toLowerCase() == 'building' ) ) {
+      projectsWithActivity.push(projects[i]);
     }
   }
-  return newProjects;
+  return projectsWithActivity.sort(utils.nameComparison);
 }
 
-getBuildNumber = function(project) {
-  var buildLabel = project.getAttribute('lastbuildlabel');
-  if(buildLabel == undefined)
-    buildLabel = "";
-  else
-    buildLabel = "#" + buildLabel;
-  return buildLabel;
+isNotBlacklisted = function(project) {
+  var branchRegex = new RegExp(" \\(" + settings.branch + "\\)$");
+  var projectNoBranch = utils.dasherize(project.getAttribute('name').toLowerCase().replace(branchRegex, ''));
+  return (settings.blacklist.indexOf( projectNoBranch ) < 0);
 }
 
 getCurrentStatus = function(priorStatus, activity) {

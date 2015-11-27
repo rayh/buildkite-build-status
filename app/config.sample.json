@@ -2,6 +2,7 @@
   "project": "<project_name>",
   "apiKey": "<api_key>",
   "pollInterval": 10000,
+  "daysInactive": "<number_of_days_to_display_inactive_projects_for>",
   "whitelist": ["<projects_to_whitelist>"],
   "branch": "master"
 }

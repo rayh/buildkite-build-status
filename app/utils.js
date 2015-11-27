@@ -24,5 +24,13 @@ module.exports = {
 
     time = moment(timestamp).fromNow();
     return time;
+  },
+
+  nameComparison: function(a, b) {
+    name1 = a.getAttribute('name').toLowerCase()
+    name2 = b.getAttribute('name').toLowerCase()
+    if (name1 < name2) { return -1; }
+    if (name1 > name2) { return 1; }
+    return 0;
   }
 }

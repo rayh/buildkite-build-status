@@ -1,10 +1,11 @@
 var buildkite = {
 
-  buildsPerRow: 2,
+  buildsPerRow: 3,
   rendered: [],
 
   process: function(projects) {
     var builds = document.getElementsByClassName('builds');
+    this.rendered = [];
     if(this.rendered.length == 0) { this.buildRows(builds, projects); }
 
     for(var i = 0; i < projects.length; i++) {
@@ -31,13 +32,16 @@ var buildkite = {
     builds[0].innerHTML = rowHtml;
   },
 
+  optimumGrid: function(projectCount) {
+
+  },
+
   updateStatus: function(project) {
     var build = document.getElementById(project.identifier);
     build.className                                                   = 'build build--' + project.dashedStatus;
     build.getElementsByClassName('prior-status')[0].className         = 'prior-status prior-status--' + project.dashedPriorStatus;
     build.getElementsByClassName('build__status')[0].innerHTML        = project.status;
     build.getElementsByClassName('build__name')[0].innerHTML          = project.name;
-    build.getElementsByClassName('build__number')[0].innerHTML        = project.buildNumber;
     build.getElementsByClassName('build__time-stamp')[0].innerHTML    = project.timeStamp;
     build.getElementsByClassName('prior-status__status')[0].innerHTML = project.priorStatus;
   },
@@ -49,5 +53,3 @@ var buildkite = {
   }
 
 }
-
-exports.buildkite = buildkite;
