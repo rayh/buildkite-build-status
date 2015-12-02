@@ -48,14 +48,52 @@ processXMLResponse = function(xml) {
 
 activeProjects = function(projects) {
   projectsWithActivity = []
+  projectsBuilding = []
+  projectsFailed = []
+  projectsOther = []
   var now = moment();
 
   for(var i = 0; i < projects.length; i++) {
-    var date_modified = moment(projects[i].getAttribute('lastbuildtime'));
-    if( isNotBlacklisted(projects[i]) && ( (date_modified && Math.ceil(now.diff(date_modified, 'days', true)) <= settings.daysInactive) || projects[i].getAttribute('activity').toLowerCase() == 'building' ) ) {
-      projectsWithActivity.push(projects[i]);
+    if( isNotBlacklisted(projects[i])) {
+      if ( projects[i].getAttribute('activity').toLowerCase() == 'building') {
+        projectsBuilding.push(projects[i]);
+      } else if ( getPriorStatus(projects[i]).toLowerCase() == 'failure') {
+        projectsFailed.push(projects[i]);
+      } else {
+        var date_modified = moment(projects[i].getAttribute('lastbuildtime'));
+        if( isNotBlacklisted(projects[i]) && ( (date_modified && Math.ceil(now.diff(date_modified, 'days', true)) <= settings.daysInactive) ) ) {
+          projectsOther.push(projects[i]);
+        }
+      }
     }
   }
+  for(var i = 0; i < projectsBuilding.length; i++) {
+    if (projectsWithActivity.length < settings.maxDisplay) {
+      projectsWithActivity.push(projectsBuilding[i]);
+    }
+    else {
+      break;
+    }
+  }
+
+  for(var i = 0; i < projectsFailed.length; i++) {
+    if (projectsWithActivity.length < settings.maxDisplay) {
+      projectsWithActivity.push(projectsFailed[i]);
+    }
+    else {
+      break;
+    }
+  }
+  
+  for(var i = 0; i < projectsOther.length; i++) {
+    if (projectsWithActivity.length < settings.maxDisplay) {
+      projectsWithActivity.push(projectsOther[i]);
+    }
+    else {
+      break;
+    }
+  }
+
   return projectsWithActivity.sort(utils.nameComparison);
 }
 

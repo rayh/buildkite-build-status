@@ -3,6 +3,7 @@
   "apiKey": "<api_key>",
   "pollInterval": 60000,
   "daysInactive": 5,
+  "maxDisplay": 12,
   "blacklist": [
     "a-project",
     "another-project"
