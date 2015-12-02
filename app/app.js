@@ -33,7 +33,7 @@ processXMLResponse = function(xml) {
     var projectCurrentStatus  = getCurrentStatus(projectPriorStatus, projectActivity);
 
     status = {
-      name:                 utils.humanize(projectName),
+      name:                 utils.humanize(projectName).replace(/\s\(.*?\)/, ''),
       identifier:           utils.dasherize(projectName),
       priorStatus:          utils.humanize(projectPriorStatus),
       dashedPriorStatus:    utils.dasherize(projectPriorStatus),
