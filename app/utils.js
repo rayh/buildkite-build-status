@@ -32,5 +32,12 @@ module.exports = {
     if (name1 < name2) { return -1; }
     if (name1 > name2) { return 1; }
     return 0;
+  },
+
+  dateComparison: function(a, b) {
+    date1 = moment(a.getAttribute('lastbuildtime'))
+    date2 = moment(b.getAttribute('lastbuildtime'))
+    return (date2 - date1);
   }
+
 }

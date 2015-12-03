@@ -67,6 +67,9 @@ activeProjects = function(projects) {
       }
     }
   }
+
+  projectsOther.sort(utils.dateComparison);
+
   for(var i = 0; i < projectsBuilding.length; i++) {
     if (projectsWithActivity.length < settings.maxDisplay) {
       projectsWithActivity.push(projectsBuilding[i]);
