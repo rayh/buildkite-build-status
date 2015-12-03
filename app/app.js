@@ -69,6 +69,8 @@ activeProjects = function(projects) {
   }
 
   projectsOther.sort(utils.dateComparison);
+  projectsFailed.sort(utils.dateComparison);
+  projectsBuilding.sort(utils.nameComparison);
 
   for(var i = 0; i < projectsBuilding.length; i++) {
     if (projectsWithActivity.length < settings.maxDisplay) {
