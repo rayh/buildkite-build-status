@@ -11,15 +11,16 @@ var fs      = require('fs');
 
 var settings;
 
-if (fs.existsSync('./config.json')) {
-    settings = ( require('./config.json') );
+if (fs.existsSync(__dirname + '/../config.json')) {
+    settings = ( require(__dirname + '/../config.json') );
 } else {
-    settings = require('./config.sample.json');
+    settings = require(__dirname + '/config.sample.json');
 }
 
 app.use(express.static(__dirname + '/../public'));
 
-pollUrl = 'https://cc.buildkite.com/' + settings.project + '.xml?api_key=' + settings.apiKey + '&branch='+settings.branch;
+pollUrl = 'https://cc.buildkite.com/' + settings.organisation + '.xml?access_token=' + settings.accessToken + '&branch='+settings.branch;
+console.log("Use buildkite API", pollUrl);
 
 processXMLResponse = function(xml) {
   var doc = jsdom(xml);
@@ -37,7 +38,7 @@ processXMLResponse = function(xml) {
     var projectCurrentStatus  = getCurrentStatus(projectPriorStatus, projectActivity);
 
     status = {
-      name:                 utils.humanize(projectName),
+      name:                 projectName,
       identifier:           utils.dasherize(projectName),
       priorStatus:          utils.humanize(projectPriorStatus),
       dashedPriorStatus:    utils.dasherize(projectPriorStatus),

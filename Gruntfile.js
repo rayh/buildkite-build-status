@@ -62,6 +62,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-sass');
     grunt.registerTask('web', 'launch webserver and watch tasks', [
+        'sass:dist',
         'parallel:web',
     ]);
     grunt.registerTask('default', ['web']);

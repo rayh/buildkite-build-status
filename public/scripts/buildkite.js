@@ -1,6 +1,6 @@
 var buildkite = {
 
-  buildsPerRow: 2,
+  buildsPerRow: 1,
   rendered: [],
 
   process: function(projects) {
